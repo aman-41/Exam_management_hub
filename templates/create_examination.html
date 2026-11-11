@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Examination</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <h3>You can create Exam here</h3>
+      <form action="/create_examination" method="POST">
+
+
+    <div class="form-group">
+    <label for="exampleInputEmail1">Examination Name</label>
+    <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Examination Name">
+    <small id="emailHelp" class="form-text text-muted"></small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Examination Id</label>
+    <input type="text" class="form-control" name="id" aria-describedby="emailHelp" placeholder="Examination Id">
+    <small id="emailHelp" class="form-text text-muted"></small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1"> Duration</label>
+    <input type="text" class="form-control" name ="duration" placeholder="Duration">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Examination Type</label>
+    <input type="text" class="form-control" name ="type" placeholder="Examination Type">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Slot Start Date</label>
+    <input type="date" class="form-control" name ="slot_open_date" placeholder="Slot Start Date">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Slot End Date</label>
+    <input type="date" class="form-control" name ="slot_close_date" placeholder="Slot Start Date">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Booking Start Date</label>
+    <input type="date" class="form-control" name ="booking_open_date" placeholder="Booking Start Date">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Booking End Date</label>
+    <input type="date" class="form-control" name ="booking_close_date" placeholder="Booking End Date">
+  </div>
+  <div>
+  <label for="exampleInputEmail1">Status</label>
+    <select name = "status">
+      <option value = 'draft'>Draft</option>
+      <option value = 'slot creation'>Slot Creation</option>
+      <option value = 'booking open'>Booking Open</option>
+      <option value = 'closed'>Closed</option>
+      <option value = 'completed'>Completed</option>
+    </select>
+  </div>
+  <div>
+    <label for="exampleInputEmail1">Course</label>
+    <select name = "course_id">
+      {%for i in course%}
+      <option value = "{{i.course_id}}">{{i.course_name}}</option>
+      {% endfor %}
+    </select>
+
+  </div>
+  <button type="submit" class="btn btn-danger">Create</button>
+</form>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyM" crossorigin="anonymous"></script>
+    
+</body>
+</html>

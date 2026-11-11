@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slots</title>
+</head>
+<body><table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Slot Id</th>
+        <th scope="col">Examination Name</th>
+        <th scope="col">Examiner Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Start Time</th>
+        <th scope="col">End Time</th>
+        <th scope="col">Maximum Slots</th>
+        <th scope="col">Available Slots</th>
+        <th scope="col">Status</th>
+        <th scope="col">Created By</th>
+        </tr>
+    </thead>
+        <tbody>
+            {% for slot in examination_slots %}
+            <tr>
+                <td>{{slot.id}}</td>
+                <td>{{slot.examination.name}}</td>
+                <td>{{slot.examiner.name}}</td>
+                <td>{{slot.date}}</td>
+                <td>{{slot.start_time}}</td>
+                <td>{{slot.end_time}}</td>
+                <td>{{slot.maximum_slots}}</td>
+                <td>{{slot.available_slots}}</td>
+                <td>{{slot.status}}</td> 
+                <td>{{slot.created_by }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    
+</body>
+</html>

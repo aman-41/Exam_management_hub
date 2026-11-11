@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+</head>
+<body>
+    <h1>Registered Students</h1>
+    <table border="2">
+        <tr>
+            <th>Student Name</th>
+            <th>Student Id</th>
+            <th>Contact No</th>
+            <th>Email Id</th>
+            <th>Action</th>
+        </tr>
+        {% for i in student %}
+        <tr>
+            <td>{{i.name}}</td>
+            <td>{{i.id}}</td>
+            <td>{{i.contact_no}}</td>
+            <td>{{i.email_id}}</td>
+            <td><a href="/view_booked_slot/{{i.id}}"><button>View</button></a></td>
+        </tr>
+        {% endfor %}
+    
+</body>
+</html>

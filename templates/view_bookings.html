@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Bookings for Examination Slot: {{examination_slot.id}}</h1>
+    <table border="2">
+        <tr>
+            <th>Student Id</th>
+            <th>Student Name</th>
+            <th>Student Email</th>
+            <th>Booking Date</th>
+            <th>Booking Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{booking.student.id}}</td>
+            <td>{{booking.student.name}}</td>
+            <td>{{booking.student.email_id}}</td>
+            <td>{{booking.examination_slot.date}}</td>
+            <td>{{booking.examination_slot.start_time}}</td>
+            <td>{{booking.status}}</td>
+            <td>
+                <a href="/evaluate_exam/{{booking.id}}" class="btn btn-danger" >Evaluate</a>
+            </td>
+        </tr>
+        {% endfor %}
+    
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student</title>
+</head>
+<body>
+    <table border="2">
+        <tr>
+            <th>Student Name</th>
+            <th>Slot Id</th>
+            <th>Course Id</th>
+            <th>Exam Id</th>
+            <th>Slot Date</th>
+            <th>Slot Start Time</th>
+            <th>Slot End Time</th>
+            <th>Marks Obtained</th>
+            <th>Total Marks Obtained</th>
+            
+        </tr>
+        {% for i in booking %}
+        <tr>
+            <td>{{i.student.name}}</td>
+            <td>{{i.id}}</td>
+            <td>{{i.examination_slot.examination.course_id}}</td>
+            <td>{{i.examination_slot.examination.id}}</td>
+            <td>{{i.examination_slot.date}}</td>
+            <td>{{i.examination_slot.start_time}}</td>
+            <td>{{i.examination_slot.end_time}}</td>
+            <td>{{i.rubrics}}</td>
+            <td>{{i.total_marks}}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="9">No bookings found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

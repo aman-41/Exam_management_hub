@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome,{{student.name}}</h1>
+    <a href="/logout"><button class="btn btn-danger">Logout</button></a>
+
+    
+<form action="/student_dashboard" method="GET">
+    <input type="text" name="search"
+           placeholder="Search by Name"
+           value="{{ search_query }}">
+    <button type="submit">Search</button>
+</form>
+    <h2>Available Slots</h2>
+    <table border="2">
+    <tr>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Available Slots</th>
+        <th>Examination</th>
+        <th>Course</th>
+        <th>Action</th>
+    </tr>
+    {% for i in booking_available_slots %}
+    <tr>
+        <td>{{i.date}}</td>
+        <td>{{i.start_time}}</td>
+        <td>{{i.end_time}}</td>
+        <td>{{i.available_slots}}</td>
+        <td>{{i.examination.name}}</td>
+        <td>{{i.examination.course_details.course_name}}</td>
+        <td>
+             {% if i.examination_id in booked_course %}
+    <button disabled>Already Booked</button>
+{% else %}
+    <form action="/book_slot/{{i.id}}" method="POST">
+        <button type="submit">Book Slot</button>
+    </form>
+{% endif %}
+            </td>
+    </tr>
+    {% endfor %}
+</table>
+<h3>Evaluation</h3>
+<table border="2">
+    <tr>
+        <th>Examination</th>
+        <th>Slot</th>
+        <th>Marks</th>
+    </tr>
+    {% for i in evaluation %}
+    <tr>
+        <td>{{i.examination_slot.examination.name}}</td>
+        <td>{{i.examination_slot.id}}</td>
+        <td>
+            {% for criterion in i.rubrics %}
+                <p>{{criterion}}: {{i.rubrics[criterion]}}</p>
+            {% endfor %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+    <h3>Upcoming Bookings</h3>
+    <table border="2">
+        <tr>
+            <th>Examination</th>
+            <th>Slot Id</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for i in bookings %}
+        <tr>
+            <td>{{i.examination_slot.examination.name}}</td>
+            <td>{{i.examination_slot.id}}</td>
+            <td>{{i.examination_slot.date}}</td>
+            <td>{{i.examination_slot.start_time}}</td>
+            <td>{{i.examination_slot.end_time}}</td>
+            <td>{{i.status}}</td>
+            <td>
+                {% if i.examination_slot.examination.status == "booking open" %}
+                <a href="/cancel_booking/{{i.id}}" class="btn btn-danger" >Cancel Booking</a>
+            </td>
+            {% else %}
+            Booking Closed
+            {% endif %}
+        </tr>
+        {% endfor %}
+</body>
+</html>

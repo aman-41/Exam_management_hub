@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Examiner</title>
+</head>
+<body>
+     <h3>You can create Exam here</h3>
+      <form action="/create_examiner" method="POST">
+
+
+    <div class="form-group">
+    <label for="exampleInputEmail1">Examiner Id</label>
+    <input type="text" class="form-control" name="id" aria-describedby="emailHelp" placeholder="Examiner Id">
+    <small id="emailHelp" class="form-text text-muted"></small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Examiner Name</label>
+    <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Examiner Name">
+    <small id="emailHelp" class="form-text text-muted"></small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1"> Username</label>
+    <input type="text" class="form-control" name ="username" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="text" class="form-control" name ="password" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Department</label>
+    <input type="text" class="form-control" name ="department" placeholder="Department">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Email Id</label>
+    <input type="text" class="form-control" name ="email_id" placeholder="Email Id">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Contact No</label>
+    <input type="number" class="form-control" name ="contact_no" placeholder="Contact No">
+  </div>
+  <button type="submit" class="btn btn-danger">Create</button>
+      </form>
+    
+</body>
+</html>

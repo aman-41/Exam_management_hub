@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluate</title>
+</head>
+<body>
+    <h1>Evaluation</h1>
+    <h4>Exam:{{examination_slot.examination.name}}</h4>
+    <h4>Slot:{{examination_slot.id}}</h4>
+    <h4>Student Name : {{booking.student.name}}</h4>
+    <form method="post" action="/evaluate_exam/{{booking.id}}">
+        {% for rubric in rubrics %}
+            <label for="rubric_{{rubric.id}}">{{rubric.criterion}}:</label>
+            <label for="rubric_{{rubric.id}}">Weightage: {{rubric.Weightage}}</label>
+            <input type="number" name="rubric_{{rubric.id}}"  required>
+            <br>
+        {% endfor %}
+        <button type="submit">Submit Evaluation</button>
+        
+</body>
+</html>
