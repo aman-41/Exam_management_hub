@@ -9,11 +9,13 @@
 </head>
 <body>
     <h3>Examination Page</h3>
-    <a href="/create_examination"><button class="btn btn-danger">Create Exam</button></a>
-    <a href = "/view_all_slots"><button class="btn btn-danger">View Slots </button></a>
-    <form action="/search_exam" method="POST">
+     <form action="/search_exam" method="POST">
     <input type="text" name="search" placeholder="Search by Id or Name">
     <button type="submit" class="btn btn-danger">Search</button>
+    </form>
+    <a href="/create_examination"><button class="btn btn-danger">Create Exam</button></a>
+    <a href = "/view_all_slots"><button class="btn btn-danger">View Slots </button></a>
+   
     <table class="table">
   <thead>
     <tr>
@@ -50,7 +52,7 @@
       <button><a href = "/create_slot/{{i.id}}">CREATE SLOT</a></button>
       <button><a href = "/assign_rubrics/{{i.id}}">RUBRICS</a></button></td>
       <td>{{i.examiner.name}}
-        <form action ="/assign_examiner/{{i.id}}" method="POST">
+      <form action ="/assign_examiner/{{i.id}}" method="POST">
       <select name = "examiner_id" class = "form-select">  
       <option value = ""> --Select Examiner-- </option>
       {%for a in examiner%}
@@ -59,7 +61,6 @@
       </select>
     <button type = "submit" class="btn btn-danger">Assign</button></form>
      </td>
-      </select>
     </tr>
 {% endfor %}
     

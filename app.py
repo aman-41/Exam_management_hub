@@ -8,9 +8,6 @@ app.secret_key='dev-secret-key-change-later'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///exams_manager.db'
 db = SQLAlchemy(app)
 
-#table --> class
-#column --> attributes
-#CREATE ADMIN (id int primary key,username varchar(20),password varchar(20))
 
 class Admin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -125,8 +122,9 @@ def home():
             db.session.add(examiner)
             db.session.commit()
             flash('Your registeration is succesfully completed,Please wait for Approval from Institute.','success')
+            return redirect('/login')
         else:
-            student = Student(name=name,username=username,password=password,email_id=email_id,contact_no=contact_no)
+            student = Student(id=request.form.get('id'),name=name,username=username,password=password,email_id=email_id,contact_no=contact_no)
             db.session.add(student)
             db.session.commit()
             flash('Your registeration is succesfully completed.','success')
@@ -359,16 +357,6 @@ def examiner():
     return render_template('examiner.html',examiner=examiner,examination=examination)
 
 
-#@app.route('/assign_examination/<id>',methods=['GET','POST'])
-#def assign_examination(id):
- #   examiner = Examiner.query.filter_by(id=id).first()
-  #  examination_id = request.form.get('examination_id')
-   # examination = Examination.query.filter_by(id=examination_id).first()
-    #if examination is None:
-     #   return "Examination not found"
-    #examination.examiner_id = examiner.id
-    #db.session.commit()
-    #return redirect('/examiner')
 
 @app.route('/assign_examiner/<id>',methods=['GET','POST'])
 def assign_examiner(id):
@@ -405,8 +393,11 @@ def assign_rubrics(id):
         rubric = ExaminationRubrics(criterion=criterion,maximum_marks=maximum_marks,weightage=weightage,remark=remark,examination_id=id)
         db.session.add(rubric)
         db.session.flush()
-        total_maximum_marks = int(sum(rubric.maximum_marks for rubric in examination.examination_rubrics))
-        examination.maximum_marks = int(total_maximum_marks)
+        all_rubrics = ExaminationRubrics.query.filter_by(examination_id=id).all()
+
+        total_maximum_marks = sum(int(r.maximum_marks or 0) for r in all_rubrics)
+
+        examination.maximum_marks = total_maximum_marks
 
         db.session.commit()
         return redirect('/examination')
@@ -432,7 +423,7 @@ def create_slot(id):
         start_time = request.form.get('start_time')
         end_time = request.form.get('end_time')
         maximum_slots = request.form.get('maximum_slots')
-        available_slots =maximum_slots
+        available_slots = maximum_slots
         status = "Available"
         date = datetime.strptime(date, '%Y-%m-%d').date()
         examiner_id = examination.examiner_id
@@ -460,8 +451,8 @@ def edit_slot(id):
         examination_slot.start_time = request.form.get('start_time')
         examination_slot.end_time = request.form.get('end_time')
         examination_slot.maximum_slots = request.form.get('maximum_slots')
-        examination_slot.available_slots = request.form.get('available_slots')
-        examination_slot.status = request.form.get('status')
+        examination_slot.available_slots = request.form.get('maximum_slots')
+       # examination_slot.status = request.form.get('status')
         db.session.commit()
         if 'examiner_id' in session:
             return redirect('/slots')
@@ -570,8 +561,7 @@ def evaluate_exam(id):
 def search_examiner():
     if request.method == 'POST':
         search_query = request.form.get('search')
-        #select * from Sponsor where username like '%search_query%'
-        examiner = Examiner.query.filter(Examiner.username.ilike(f'%{search_query}%')).all()
+        examiner = Examiner.query.filter(or_(Examiner.id.ilike(f'%{search_query}%'),Examiner.username.ilike(f'%{search_query}%'))).all()
         return render_template('examiner.html', examiner=examiner)
     else:
         return redirect('/examiner ')
@@ -580,21 +570,20 @@ def search_examiner():
 def search_examination():
     if request.method == 'POST':
         search_query = request.form.get('search')
-        #select * from Sponsor where username like '%search_query%'
-        examination = Examination.query.filter(Examination.name.ilike(f'%{search_query}%')).all()
+        examination = Examination.query.filter(or_(Examination.id.ilike(f'%{search_query}%'),Examination.name.ilike(f'%{search_query}%'))).all()
         return render_template('student_dashboard.html', examination=examination)
     else:
         return redirect('/student_dashboard')
 
 @app.route('/search_exam', methods=['GET', 'POST'])
 def search_exam():
-    if request.method == 'POST':
+  if request.method == 'POST':
         search_query = request.form.get('search')
-        #select * from Sponsor where username like '%search_query%'
+       #select * from Sponsor where username like '%search_query%'
         examination = Examination.query.filter(or_(Examination.id.ilike(f'%{search_query}%'),Examination.name.ilike(f'%{search_query}%'))).all()
         return render_template('examination.html', examination=examination)
-    else:
-        return redirect('/examination')
+  else:
+      return redirect('/examination')
 
 
 @app.route('/search_course', methods=['GET', 'POST'])
