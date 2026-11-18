@@ -600,7 +600,6 @@ def search_course():
 def search_student():
     if request.method == 'POST':
         search_query = request.form.get('search')
-        #select * from Sponsor where username like '%search_query%'
         student = Student.query.filter(or_(Student.id.ilike(f'%{search_query}%'),Student.name.ilike(f'%{search_query}%'))).all()
         return render_template('student.html', student=student)
     else:
